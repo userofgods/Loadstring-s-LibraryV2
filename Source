@@ -1,0 +1,123 @@
+local Library = {
+	Active = true
+}
+
+function Library:MakeWindow(text)
+	local Gui = Instance.new("ScreenGui")
+	local Frames = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local Title = Instance.new("TextLabel")
+	local UICorner_2 = Instance.new("UICorner")
+	local SideBarFrame = Instance.new("Frame")
+	local ScrollingFrame = Instance.new("ScrollingFrame")
+	local UICorner_3 = Instance.new("UICorner")
+	
+	Gui.Name = "Gui"
+	Gui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+	Gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	Frames.Name = "Frames"
+	Frames.Parent = Gui
+	Frames.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+	Frames.Position = UDim2.new(0.316388458, 0, 0.238260865, 0)
+	Frames.Size = UDim2.new(0, 473, 0, 287)
+	Frames.Active = true
+	Frames.Draggable = true
+
+	UICorner.Parent = Frames
+
+	Title.Name = "Title"
+	Title.Parent = Frames
+	Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	Title.Size = UDim2.new(0, 473, 0, 50)
+	Title.Font = Enum.Font.Unknown
+	Title.Text = text
+	Title.TextColor3 = Color3.fromRGB(245, 245, 245)
+	Title.TextSize = 31.000
+	Title.TextWrapped = true
+	Title.TextXAlignment = Enum.TextXAlignment.Left
+
+	UICorner_2.Parent = Title
+
+	SideBarFrame.Name = "SideBarFrame"
+	SideBarFrame.Parent = Frames
+	SideBarFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+	SideBarFrame.Position = UDim2.new(0, 0, 0.174216032, 0)
+	SideBarFrame.Size = UDim2.new(0, 149, 0, 237)
+
+	UICorner_3.Parent = SideBarFrame
+	
+	local ButtonCore = {}
+	
+	function ButtonCore:CreateMainButton(text)
+		local ButtonT = Instance.new("TextButton")
+		local UICorner_4 = Instance.new("UICorner")
+		
+		ButtonT.Name = "ButtonT"
+		ButtonT.Parent = SideBarFrame
+		ButtonT.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+		ButtonT.Position = UDim2.new(0.0738254935, 0, 0.0337552726, 0)
+		ButtonT.Size = UDim2.new(0, 126, 0, 32)
+		ButtonT.Font = Enum.Font.Unknown
+		ButtonT.TextColor3 = Color3.fromRGB(245, 245, 245)
+		ButtonT.TextSize = 39.000
+		ButtonT.Text = text
+
+		UICorner_4.Parent = ButtonT
+
+		ScrollingFrame.Parent = Frames
+		ScrollingFrame.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+		ScrollingFrame.Position = UDim2.new(0.315010577, 0, 0.174216032, 0)
+		ScrollingFrame.Size = UDim2.new(0, 324, 0, 222)
+		ScrollingFrame.Visible = false
+		ScrollingFrame.VerticalScrollBarPosition = Enum.VerticalScrollBarPosition.Left
+		
+		ButtonT.MouseButton1Click:Connect(function(othBtnClicked, founded, checking)
+			ScrollingFrame.Visible = true
+			checking = true
+			if othBtnClicked then
+				ScrollingFrame.Visible = true
+			elseif founded then
+				ScrollingFrame.Visible = false
+			end
+		end)
+	end
+	
+	function ButtonCore:CreateButton(text, pfunction)
+		local ButtonS = Instance.new("TextButton")
+		local UICorner_5 = Instance.new("UICorner")
+		local Design = Instance.new("Frame")
+		local UICorner_6 = Instance.new("UICorner")
+		local pcallf = pfunction or function() end
+		
+		ButtonS.Name = "ButtonS"
+		ButtonS.Parent = ScrollingFrame
+		ButtonS.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+		ButtonS.Position = UDim2.new(0.0586419702, 0, 0.0256461427, 0)
+		ButtonS.Size = UDim2.new(0, 286, 0, 38)
+		ButtonS.Font = Enum.Font.Unknown
+		ButtonS.TextColor3 = Color3.fromRGB(245, 245, 245)
+		ButtonS.TextSize = 31.000
+		ButtonS.TextXAlignment = Enum.TextXAlignment.Left
+		ButtonS.Text = text
+
+		UICorner_5.Parent = ButtonS
+
+		Design.Name = "Design"
+		Design.Parent = ButtonS
+		Design.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
+		Design.Position = UDim2.new(0.867132843, 0, 0.0789473057, 0)
+		Design.Size = UDim2.new(0, 32, 0, 31)
+
+		UICorner_6.CornerRadius = UDim.new(1, 8)
+		UICorner_6.Parent = Design
+		
+		ButtonS.MouseButton1Click:Connect(function()
+			pcall(pcallf)
+		end)
+	end
+	
+	return ButtonCore
+end
+
+return Library
